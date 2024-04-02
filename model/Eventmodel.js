@@ -1,5 +1,6 @@
+// Import the mongoose 
 const mongoose = require("mongoose")
-
+// Defined the schema 
 const EventSchema = mongoose.Schema({
     event_name:{
         type:String,
@@ -35,6 +36,7 @@ const EventSchema = mongoose.Schema({
 })
 
 const Event = new mongoose.model("Event",EventSchema)
+// export the event module
 module.exports = Event
 
 
