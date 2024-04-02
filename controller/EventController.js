@@ -1,6 +1,6 @@
 const { default: axios } = require("axios");
 const Event = require("../model/Eventmodel")
-const request = require('request');
+
 
 async function createRecorde(req,res){
     try {
@@ -45,8 +45,9 @@ async function findevent(req, res) {
 
 
         const eventdetailPromise = data.map(async (event) => {
-            const weatherResponse = await axios.get(`https://gg-backend-assignment.azurewebsites.net/api/Weather?code=KfQnTWHJbg1giyB_Q9Ih3Xu3L9QOBDTuU5zwqVikZepCAzFut3rqsg==&city=${encodeURIComponent(event.city)}&date=${date}`);
-            const distanceResponse = await axios.get(`https://gg-backend-assignment.azurewebsites.net/api/Distance?code=IAKvV2EvJa6Z6dEIUqqd7yGAu7IZ8gaH-a0QO6btjRc1AzFu8Y3IcQ==&latitude1=${latitude}&longitude1=${longitude}&latitude2=${event.latitude}&longitude2=${event.longitude}`);
+            const weatherResponse = await axios.get(`https://gg-backend-assignment.azurewebsites.net/api/Weather?code=${process.env.WEATHER_API_KEY}==&city=${(event.city)}&date=${date}`);
+            const distanceResponse = await axios.get(`https://gg-backend-assignment.azurewebsites.net/api/Distance?code=${process.env.DISTANCE_API_KEY}==&latitude1=${latitude}&longitude1=${longitude}&latitude2=${event.latitude}&longitude2=${event.longitude}`);
+
 
             return {
                 eventName: event.event_name,
@@ -59,7 +60,7 @@ async function findevent(req, res) {
         
 
         const eventdetail = await Promise.all(eventdetailPromise);
-        console.log(eventdetail);
+        // console.log(eventdetail);
         res.send({ result: "Success",count:eventdetail.length, events: eventdetail });
     } catch (error) {
         console.error('Error finding events:', error);
