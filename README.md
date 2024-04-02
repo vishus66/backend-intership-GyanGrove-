@@ -6,7 +6,7 @@ This RESTful service manages and queries event data based on a user's geographic
 POST /events/add
 This endpoint allows for the addition of events into the system using details provided in the CSV dataset.
 
-======Request Body=======
+======Request Body======
 
 event_name: String (required) - The name of the event.
 city: String (required) - The name of the city where the event takes place.
